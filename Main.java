@@ -5,7 +5,7 @@
  * 16465
  * Regan Stehle 
  * rms3762
- * <Student2 5-digit Unique No.>
+ * 16465
  * Slip days used: 0
  * Git URL: https://github.com/kmalyavina/Project3
  * Fall 2016
@@ -50,6 +50,7 @@ public class Main {
 		// only once at the start of main.
 		
 		dictionary = makeDictionary();			// create the dictionary graph
+		inputs = new ArrayList<String>();		// create ArrayList to hold input
 		
 	}
 	
@@ -58,19 +59,17 @@ public class Main {
 	 * @return ArrayList of 2 Strings containing start word and end word. 
 	 * If command is /quit, return empty ArrayList. 
 	 */
-	public static ArrayList<String> parse(Scanner keyboard) {
-		inputs = new ArrayList<String>();			// ArrayList to hold the input words
-		
+	public static ArrayList<String> parse(Scanner keyboard) {		
 		String input = keyboard.nextLine();		// get the whole input
 		Scanner words = new Scanner(input);		// word scanner
 		
 		if(input.contains("/quit")){			// see if the user wants to quit
-			System.exit(0);							// terminate the program
+			System.exit(0);						// terminate the program
 		}
 		
-		inputs.add(words.next());					// get first word
-		inputs.add(words.next());					// get second word
-		words.close();								// end scan
+		inputs.add(words.next());				// get first word
+		inputs.add(words.next());				// get second word
+		words.close();							// end scan
 		
 		return inputs;
 	}
@@ -116,7 +115,7 @@ public class Main {
 		ArrayList<String> DFS = getWordLadderBFS(inputs.get(0), inputs.get(1)); // make DFS word ladder
 		
 		//** NOTE: 0-rung word ladders may exist - check exists flag for BFS/DFS
-		if(!(existsBFS && existsDFS)){		// check to see if either list is empty
+		if(!(existsBFS && existsDFS)){			// check to see if a ladder exists
 			System.out.println("no word ladder can be found between " + inputs.get(0) + "and " + inputs.get(1) + ".");
 			return;
 		}
