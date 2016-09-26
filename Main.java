@@ -112,7 +112,7 @@ public class Main {
 	
 	public static void printLadder(ArrayList<String> ladder) {
 		ArrayList<String> BFS = getWordLadderBFS(inputs.get(0), inputs.get(1));	// make BFS word ladder
-		ArrayList<String> DFS = getWordLadderBFS(inputs.get(0), inputs.get(1)); // make DFS word ladder
+		ArrayList<String> DFS = getWordLadderDFS(inputs.get(0), inputs.get(1)); // make DFS word ladder
 		
 		//** NOTE: 0-rung word ladders may exist - check exists flag for BFS/DFS
 		if(!(existsBFS && existsDFS)){			// check to see if a ladder exists
