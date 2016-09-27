@@ -39,9 +39,15 @@ public class Main {
 		}
 		initialize();
 		
-		// TODO methods to read in words, output ladder
-		printLadder(parse(kb));
+		parse(kb);
 		
+		ArrayList<String> BFS = getWordLadderBFS(inputs.get(0), inputs.get(1));	// make BFS word ladder
+		ArrayList<String> DFS = getWordLadderDFS(inputs.get(0), inputs.get(1)); // make DFS word ladder
+		
+		if(BFS.size() > DFS.size())	
+			printLadder(DFS);
+		else 
+			printLadder(BFS);
 	}
 	
 	public static void initialize() {
@@ -77,6 +83,8 @@ public class Main {
 	public static ArrayList<String> getWordLadderDFS(String start, String end) {
 	  	ArrayList<String> ladder = new ArrayList<String>();
 	  	
+	  	// include start and end word in the ladder. ladder.get(0) should be the end word
+	  	
 		// TODO depth first search the dictionary
 	  	// if we make a ladder, set existsDFS flag to true
     	// if no ladder, set existsDFS flag to false
@@ -86,6 +94,8 @@ public class Main {
 	
     public static ArrayList<String> getWordLadderBFS(String start, String end) {
     	ArrayList<String> ladder = new ArrayList<String>();
+    	
+	  	// include start and end word in the ladder. ladder.get(0) should be the start word
 		
 		// TODO breath first search the dictionary
 	  	// if we make a ladder, set existsBFS flag to true
@@ -111,8 +121,6 @@ public class Main {
 	}
 	
 	public static void printLadder(ArrayList<String> ladder) {
-		ArrayList<String> BFS = getWordLadderBFS(inputs.get(0), inputs.get(1));	// make BFS word ladder
-		ArrayList<String> DFS = getWordLadderDFS(inputs.get(0), inputs.get(1)); // make DFS word ladder
 		
 		//** NOTE: 0-rung word ladders may exist - check exists flag for BFS/DFS
 		if(!(existsBFS && existsDFS)){			// check to see if a ladder exists
@@ -120,23 +128,21 @@ public class Main {
 			return;
 		}
 		
-		if(BFS.size() > DFS.size()){ 			// if DFS is shorter, print the DFS list
-			System.out.println("a " + DFS.size() + "-rung word ladder exists between " + inputs.get(0) + "and " + inputs.get(1) + ".");
-			System.out.println(inputs.get(0)); 		// start word
-			for(int k = 0; k < DFS.size(); k++){	// print DFS ladder
-				System.out.println(DFS.get(k));
+		System.out.println("a " + (ladder.size() - 2) + "-rung word ladder exists between " + inputs.get(0) + "and " + inputs.get(1) + ".");
+
+		if(ladder.get(0) == inputs.get(0)){ 	// print from start to end 
+			for(int k = 0; k < ladder.size(); k++){	
+				System.out.println(ladder.get(k));
 			}
-			System.out.println(inputs.get(1)); 		// end word
-		}	
+		}
 		
-		else 									// the BFS list is shorter
-			System.out.println("a " + BFS.size() + "-rung word ladder exists between " + inputs.get(0) + "and " + inputs.get(1) + ".");
-			System.out.println(inputs.get(0));		// start word
-			for(int k = 0; k < BFS.size(); k++){	// print BFS ladder
-				System.out.println(BFS.get(k));
+		else									// print in reverse order
+			for(int k = ladder.size() - 1; k > 0; k--){	
+				System.out.println(ladder.get(k));
 			}
-			System.out.println(inputs.get(1)); 		// end word		
+
 	}
 	// TODO
 	// Other private static methods here
 }
+
