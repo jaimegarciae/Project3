@@ -57,6 +57,25 @@ public class Main {
 		
 		dictionary = makeDictionary();			// create the dictionary graph
 		inputs = new ArrayList<String>();		// create ArrayList to hold input
+		createAdjacencyList(dictionary);					//create adjacency list graph
+	}
+	
+	/**
+	 * 
+	 * @param dictionary
+	 */
+	static void createAdjacencyList(Set<String> dictionary){
+		Iterator<String> scan = dictionary.iterator();
+	//do I need to create a graph here 
+		HashSet<Node> adjacencyList = new HashSet<Node>();
+	
+		while(scan.hasNext()){
+			Node newWord = new Node(scan.next(), dictionary); //but is it ok that these 
+			//Node objects don't have unique names
+			//needs to not be a local variable
+			//maybe that's why one version is to create Node graph with each BFS/DFS call
+			adjacencyList.add(newWord);
+		}
 		
 	}
 	
