@@ -23,7 +23,7 @@ public class Main {
 	static boolean existsDFS; 	// does a DFS ladder exist?
 	static boolean existsBFS;		// does a BFS ladder exist?
 	static Set<String> dictionary;
-	static HashSet<Node> adjacencyList = new HashSet<Node>();
+	static LinkedList<Node> adjacencyList; 
 	static HashSet<String> visited = new HashSet<String>();
 
 	
@@ -72,7 +72,7 @@ public class Main {
 	//do I need to create a graph here 
 	
 		while(scan.hasNext()){
-			Node newWord = new Node(scan.next(), dictionary); //but is it ok that these 
+			Node newWord = new Node(scan.next()); //but is it ok that these 
 			//Node objects don't have unique names
 			//needs to not be a local variable
 			//maybe that's why one version is to create Node graph with each BFS/DFS call
