@@ -44,13 +44,13 @@ public class Main {
 		
 		parse(kb);
 		
-		ArrayList<String> BFS = getWordLadderBFS(inputs.get(0), inputs.get(1));	// make BFS word ladder
-		ArrayList<String> DFS = getWordLadderDFS(inputs.get(0), inputs.get(1)); // make DFS word ladder
+		//ArrayList<String> BFS = getWordLadderBFS(inputs.get(0), inputs.get(1));	// make BFS word ladder
+		ArrayList<String> DFS = getWordLadderDFS(inputs.get(0), inputs.get(1), new ArrayList<String>(), new ArrayList<String>()); // make DFS word ladder
 		
-		if(BFS.size() > DFS.size())	
+//		if(BFS.size() > DFS.size())	
+//			printLadder(DFS);
+//		else 
 			printLadder(DFS);
-		else 
-			printLadder(BFS);
 	}
 	
 	public static void initialize() {
@@ -60,25 +60,8 @@ public class Main {
 		
 		dictionary = makeDictionary();			// create the dictionary graph
 		inputs = new ArrayList<String>();		// create ArrayList to hold input
-		createAdjacencyList();		//create adjacency list graph
 	}
 	
-	/**
-	 * 
-	 * @param dictionary
-	 */
-	static void createAdjacencyList(){
-		Iterator<String> scan = dictionary.iterator();
-		LinkedList<Node> adjacencyList = new LinkedList<Node>();
-		String word;
-		while(scan.hasNext()){
-			word = scan.next();
-			Node newWord = new Node(word); 
-			nodeMap.put(word, newWord);
-			adjacencyList.add(newWord);
-		}
-		
-	}
 	
 	/**
 	 * @param keyboard Scanner connected to System.in
@@ -107,15 +90,15 @@ public class Main {
 	 * @param end
 	 * @return the word ladder
 	 */
-	public static ArrayList<String> getWordLadderDFS(String start, String end) {
+	public static ArrayList<String> getWordLadderDFS(String start, String end, ArrayList<String> ladder, ArrayList<String> visited) {
 		   // mark start as visited  
 		   visited.add(start); 
 		   
-		   ArrayList<String> ladder = new ArrayList<String>();
+		  // ArrayList<String> ladder = new ArrayList<String>();
 		   
 		   for (int i=0; i<start.length(); ++i) {  
 		     StringBuilder sb = new StringBuilder(start);  
-		     for (char c='a'; c<='z'; ++c) {  
+		     for (char c='A'; c<='Z'; ++c) {  
 		       if (c == start.charAt(i)) continue; // skip itself  
 		       sb.setCharAt(i, c);  
 		       String word = sb.toString();  
@@ -129,8 +112,9 @@ public class Main {
 		       else if (!visited.contains(word) && dictionary.contains(word)) {  
 		    	   // recursive call DFS  
 		    	   ladder.add(word);
-		    	   return getWordLadderDFS(word,end);  
-		       	}  
+		    	   return getWordLadderDFS(word,end, ladder, visited);  
+		       	}
+		       
 		     }  
 		   	
 		   }  // changes each letter to try to get to the end word
@@ -156,7 +140,7 @@ public class Main {
 		Set<String> words = new HashSet<String>();
 		Scanner infile = null;
 		try {
-			infile = new Scanner (new File("five_letter_words.txt"));
+			infile = new Scanner (new File("short_dict.txt"));
 		} catch (FileNotFoundException e) {
 			System.out.println("Dictionary File not Found!");
 			e.printStackTrace();
@@ -172,27 +156,26 @@ public class Main {
 	public static void printLadder(ArrayList<String> ladder) {
 		
 		//** NOTE: 0-rung word ladders may exist - check exists flag for BFS/DFS
-		if(!(existsBFS && existsDFS)){			// check to see if a ladder exists
+		if(!(existsBFS || existsDFS)){			// check to see if a ladder exists
 			System.out.println("no word ladder can be found between " + inputs.get(0) + " and " + inputs.get(1) + ".");
 			return;
 		}
 		
-		System.out.println("a " + (ladder.size() - 2) + "-rung word ladder exists between " + inputs.get(0) + "and " + inputs.get(1) + ".");
+		System.out.println("a " + (ladder.size()) + "-rung word ladder exists between " + inputs.get(0) + " and " + inputs.get(1) + ".");
 
-		if(ladder.get(0) == inputs.get(0)){ 	// print from start to end 
 			System.out.println(inputs.get(0));
 			for(int k = 0; k < ladder.size(); k++){	
 				System.out.println(ladder.get(k));
 			}
 			System.out.println(inputs.get(1));
-		}
 		
-		else									// print in reverse order
-			System.out.println(inputs.get(0));
-			for(int k = ladder.size() - 1; k > 0; k--){	
-				System.out.println(ladder.get(k));
-			}
-			System.out.println(inputs.get(1));
+		
+//		else									// print in reverse order
+//			System.out.println(inputs.get(0));
+//			for(int k = ladder.size() - 1; k > 0; k--){	
+//				System.out.println(ladder.get(k));
+//			}
+//			System.out.println(inputs.get(1));
 	}
 	// TODO
 	// Other private static methods here
