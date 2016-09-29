@@ -121,8 +121,10 @@ public class Main {
 		       sb.setCharAt(i, c);  
 		       String word = sb.toString();  
 		       // if hits end, return 
-		       if (word.equals(end))  
+		       if (word.equals(end))  {
+		    	   existsDFS = true;
 		    	   return ladder; 
+		    	   }
 		        
 		       // keep going
 		       else if (!visited.contains(word) && dictionary.contains(word)) {  
@@ -164,6 +166,7 @@ public class Main {
 		while (infile.hasNext()) {
 			words.add(infile.next().toUpperCase());
 		}
+		System.out.println("*** Dictionary Created ***"); // testing 
 		return words;
 	}
 	
@@ -171,23 +174,26 @@ public class Main {
 		
 		//** NOTE: 0-rung word ladders may exist - check exists flag for BFS/DFS
 		if(!(existsBFS && existsDFS)){			// check to see if a ladder exists
-			System.out.println("no word ladder can be found between " + inputs.get(0) + "and " + inputs.get(1) + ".");
+			System.out.println("no word ladder can be found between " + inputs.get(0) + " and " + inputs.get(1) + ".");
 			return;
 		}
 		
 		System.out.println("a " + (ladder.size() - 2) + "-rung word ladder exists between " + inputs.get(0) + "and " + inputs.get(1) + ".");
 
 		if(ladder.get(0) == inputs.get(0)){ 	// print from start to end 
+			System.out.println(inputs.get(0));
 			for(int k = 0; k < ladder.size(); k++){	
 				System.out.println(ladder.get(k));
 			}
+			System.out.println(inputs.get(1));
 		}
 		
 		else									// print in reverse order
+			System.out.println(inputs.get(0));
 			for(int k = ladder.size() - 1; k > 0; k--){	
 				System.out.println(ladder.get(k));
 			}
-
+			System.out.println(inputs.get(1));
 	}
 	// TODO
 	// Other private static methods here
