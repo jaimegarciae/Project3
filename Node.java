@@ -24,16 +24,22 @@ import java.util.*;
 public class Node {
 	String word;
 	int distance; //for BFS & DFS, marked as visited/unvisited
+	Node predecessor;
+	boolean visited;
 	//possibly just create a linked list of neighbors as an element here, to keep as an adjacency list
 	LinkedList<String> neighbors; //if this is the way to parameterize this linked list
 	//to create LinkedList of neighbors, change one letter in the word, check if its in the dictionary
 	//cycle through alphabet, move to next letter of word, and repeat
 	
-	public Node (String wordIn, Set<String> dictionary){
+	
+	public Node (String wordIn){
 		word = wordIn; 
 		distance = -1; //distance is uninitialized/unvisited
+		predecessor = null; 
+		visited = false;
 		neighbors = new LinkedList<String>(); 
-		for(int i=0; i< word.length() ; i++){
+		
+		/* for(int i=0; i< word.length() ; i++){
 			StringBuilder tempWord = new StringBuilder(word); //we can use tempWord to modify each letter in the word and 
 									//compare it against dictionary entries
 			for(char c = 'a'; c <= 'z'; c++){ //be aware everything in dictiojnary is upper case
@@ -44,12 +50,12 @@ public class Node {
 				//if neighbor = true, then need to add this word to LinkedList of neighbors
 				if(neighbor == true){
 					neighbors.add(tempWord.toString());
+					}
 				}
-				
-			}
-			
-			
 		}
+	 */
 	}
-	
-}
+				
+			
+			
+			
