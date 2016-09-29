@@ -33,27 +33,33 @@ public class Node {
 	
 	
 	public Node (String wordIn){
-		word = wordIn; 
+		word = wordIn.toLowerCase(); 
+		System.out.println(word);
 		distance = -1; //distance is uninitialized/unvisited
 		predecessor = null; 
 		visited = false;
 		neighbors = new LinkedList<String>(); 
 		
 		for(int i=0; i< word.length() ; i++){
-			StringBuilder tempWord = new StringBuilder(word); //we can use tempWord to modify each letter in the word and 
+			StringBuilder tempWord = new StringBuilder(word.toUpperCase()); //we can use tempWord to modify each letter in the word and 
 									//compare it against dictionary entries
-			for(char c = 'a'; c <= 'z'; c++){ //be aware everything in dictiojnary is upper case
-				if(tempWord.charAt(i) == c )
-					continue;
+			for(char c = 'A'; c <= 'Z'; c++){ //be aware everything in dictionary is upper case
+				
 				tempWord.setCharAt(i, c);
-				boolean neighbor = Main.dictionary.contains(tempWord.toString().toUpperCase()); //words is Set<String> dictionary, must pass parameter in
+				if(!tempWord.toString().equals(word.toUpperCase())){
+					boolean neighbor = Main.dictionary.contains(tempWord.toString().toUpperCase()); //words is Set<String> dictionary, must pass parameter in
 				//if neighbor = true, then need to add this word to LinkedList of neighbors
-				if(neighbor == true){
-					neighbors.add(tempWord.toString());
-					}
+					if(neighbor == true){
+						neighbors.add(tempWord.toString().toLowerCase());
+						System.out.println(tempWord);
+						}
 				}
+				
+			}
 		}
-	}
+		
+	}	
+	
 				
 			
 			
