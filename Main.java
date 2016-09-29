@@ -45,7 +45,7 @@ public class Main {
 		parse(kb);
 		
 		//ArrayList<String> BFS = getWordLadderBFS(inputs.get(0), inputs.get(1));	// make BFS word ladder
-		ArrayList<String> DFS = getWordLadderDFS(inputs.get(0), inputs.get(1), new ArrayList<String>(), new ArrayList<String>()); // make DFS word ladder
+		ArrayList<String> DFS = getWordLadderDFS(inputs.get(0), inputs.get(1)); // make DFS word ladder
 		
 //		if(BFS.size() > DFS.size())	
 //			printLadder(DFS);
@@ -90,15 +90,17 @@ public class Main {
 	 * @param end
 	 * @return the word ladder
 	 */
-	public static ArrayList<String> getWordLadderDFS(String start, String end, ArrayList<String> ladder, ArrayList<String> visited) {
+	public static ArrayList<String> getWordLadderDFS(String start, String end) {
 		   // mark start as visited  
+		ArrayList<String> ladder = new ArrayList<String>();
 		   visited.add(start); 
 		   
 		  // ArrayList<String> ladder = new ArrayList<String>();
 		   
-		   for (int i=0; i<start.length(); ++i) {  
-		     StringBuilder sb = new StringBuilder(start);  
-		     for (char c='A'; c<='Z'; ++c) {  
+		   for (int i=0; i<start.length(); i++) {  		// go through each of the characters
+		     StringBuilder sb = new StringBuilder(start); 
+		     // change one letter and check if it's in the end or in the dictionary
+		     for (char c='A'; c<='Z'; c++) {  
 		       if (c == start.charAt(i)) continue; // skip itself  
 		       sb.setCharAt(i, c);  
 		       String word = sb.toString();  
@@ -111,8 +113,9 @@ public class Main {
 		       // keep going
 		       else if (!visited.contains(word) && dictionary.contains(word)) {  
 		    	   // recursive call DFS  
-		    	   ladder.add(word);
-		    	   return getWordLadderDFS(word,end, ladder, visited);  
+		    	   visited.add(word);
+		    	   ladder.addAll(getWordLadderDFS(word,end));
+		    	   return ladder;  
 		       	}
 		       
 		     }  
