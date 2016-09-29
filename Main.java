@@ -23,8 +23,8 @@ public class Main {
 	static boolean existsDFS; 	// does a DFS ladder exist?
 	static boolean existsBFS;		// does a BFS ladder exist?
 	static Set<String> dictionary;
-	static LinkedList<Node> adjacencyList; 
 	static HashSet<String> visited = new HashSet<String>();
+	static TreeMap<String, Node> nodeMap;
 
 	
 	public static void main(String[] args) throws Exception {
@@ -60,22 +60,21 @@ public class Main {
 		
 		dictionary = makeDictionary();			// create the dictionary graph
 		inputs = new ArrayList<String>();		// create ArrayList to hold input
-		createAdjacencyList(dictionary);		//create adjacency list graph
+		createAdjacencyList();		//create adjacency list graph
 	}
 	
 	/**
 	 * 
 	 * @param dictionary
 	 */
-	static void createAdjacencyList(Set<String> dictionary){
+	static void createAdjacencyList(){
 		Iterator<String> scan = dictionary.iterator();
-	//do I need to create a graph here 
-	
+		LinkedList<Node> adjacencyList = new LinkedList<Node>();
+		String word;
 		while(scan.hasNext()){
-			Node newWord = new Node(scan.next()); //but is it ok that these 
-			//Node objects don't have unique names
-			//needs to not be a local variable
-			//maybe that's why one version is to create Node graph with each BFS/DFS call
+			word = scan.next();
+			Node newWord = new Node(word); 
+			nodeMap.put(word, newWord);
 			adjacencyList.add(newWord);
 		}
 		
