@@ -35,7 +35,7 @@ public class Node {
 	
 	public Node (String wordIn){
 		word = wordIn.toLowerCase(); 
-		System.out.println(word);
+		
 		distance = -1; //distance is uninitialized/unvisited
 		predecessor = null; 
 		visitedBFS = false;
@@ -53,7 +53,7 @@ public class Node {
 				//if neighbor = true, then need to add this word to LinkedList of neighbors
 					if(neighbor == true){
 						neighbors.add(tempWord.toString().toLowerCase());
-						System.out.println(tempWord);
+						
 						}
 				}
 				
@@ -62,7 +62,12 @@ public class Node {
 		
 	}	
 	
-				
+		public boolean hasPredecessor	(){
+			if(this.predecessor == null)
+				return false;
+			else
+				return true;
+		}
 			
 			
 			
