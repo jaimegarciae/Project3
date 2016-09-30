@@ -108,7 +108,38 @@ public class Main {
 	 * @return the word ladder
 	 */
 	public static ArrayList<String> getWordLadderDFS(String start, String end) {
-		   // mark start as visited  
+		/**
+	 * Make a word ladder using Depth First Search
+	 * @param start
+	 * @param end
+	 * @return the word ladder
+	 */
+	public static ArrayList<String> getWordLadderDFS(String start, String end) {
+		   
+		ArrayList<String> ladder = new ArrayList<String>();
+		  
+		Node current = nodeMap.get(start.toLowerCase());
+    	Node last = nodeMap.get(end.toLowerCase());
+		current.visitedDFS = true;
+		for(int i = 0; i < current.neighbors.size(); i++){
+   			Node neighbor = nodeMap.get(current.neighbors.get(i));
+   			if (neighbor == last){
+   				existsDFS = true;
+    			return ladder;
+    		}
+			if(!neighbor.visitedDFS){
+				neighbor.visitedDFS = true;
+				ladder.add(neighbor.word);
+				ladder.addAll( getWordLadderDFS(neighbor.word, end));
+			}
+			
+		}
+		
+			
+		   return ladder;  
+		   
+		 } 
+		/*   // mark start as visited  
 		ArrayList<String> ladder = new ArrayList<String>();
 		   visited.add(start); 
 		   
@@ -141,7 +172,7 @@ public class Main {
 		   
 		   visited.remove(start);
 		   return ladder;  
-		   
+		   */
 		 } 
 	
    /**
@@ -160,7 +191,7 @@ public class Main {
     	
     	Queue<Node> Q = new LinkedList<Node>();
     	current.distance = 0;
-    	current.visited = true;
+    	current.visitedBFS = true;
     	Q.add(current);
     	
     	
@@ -175,8 +206,8 @@ public class Main {
         			found = true;
         			break;
         		}
-    			if(!neighbor.visited){
-    				neighbor.visited = true;
+    			if(!neighbor.visitedBFS){
+    				neighbor.visitedBFS = true;
     				neighbor.distance = current.distance + 1;
     				neighbor.predecessor = current;
     				Q.add(neighbor);
