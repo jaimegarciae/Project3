@@ -46,8 +46,8 @@ public class Main {
 		ArrayList<String> BFS = getWordLadderBFS(inputs.get(0), inputs.get(1));	// make BFS word ladder
 		ArrayList<String> DFS = getWordLadderDFS(inputs.get(0), inputs.get(1)); // make DFS word ladder
 		
-			printLadder(BFS);
-			printLadder(DFS);
+		if(BFS.size() > DFS.size())		printLadder(DFS);
+		else 							printLadder(BFS);
 	}
 	
 	public static void initialize() {
