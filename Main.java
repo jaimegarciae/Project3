@@ -124,6 +124,7 @@ public class Main {
    						ladder.add(neighbor.predecessor.word);
    					neighbor = neighbor.predecessor;
    				}	
+   				Collections.reverse(ladder);
     			return ladder;
     		}
 			if(!neighbor.visitedDFS){
@@ -180,7 +181,8 @@ public class Main {
        					ladder.add(neighbor.predecessor.word);
        					neighbor = neighbor.predecessor;
        				}	
-        			return ladder;
+       				Collections.reverse(ladder);
+       				return ladder;
         		}
     			
     		}
@@ -220,7 +222,7 @@ public class Main {
 		
 			// print in reverse order
 			
-			for(int k = ladder.size() - 1; k >= 0; k--){	
+			for(int k = 0; k < ladder.size(); k++){	
 				System.out.println(ladder.get(k));
 			}
 			
