@@ -25,7 +25,8 @@ public class Node {
 	String word;
 	int distance; //for BFS & DFS, marked as visited/unvisited
 	Node predecessor;
-	boolean visited;
+	boolean visitedBFS;
+	boolean visitedDFS;
 	//possibly just create a linked list of neighbors as an element here, to keep as an adjacency list
 	LinkedList<String> neighbors; //if this is the way to parameterize this linked list
 	//to create LinkedList of neighbors, change one letter in the word, check if its in the dictionary
@@ -37,7 +38,8 @@ public class Node {
 		System.out.println(word);
 		distance = -1; //distance is uninitialized/unvisited
 		predecessor = null; 
-		visited = false;
+		visitedBFS = false;
+		visitedDFS = false;
 		neighbors = new LinkedList<String>(); 
 		
 		for(int i=0; i< word.length() ; i++){
